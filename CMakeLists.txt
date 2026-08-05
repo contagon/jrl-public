@@ -1,8 +1,9 @@
-cmake_minimum_required(VERSION 3.0.0)
+cmake_minimum_required(VERSION 3.15...3.31)
 project(jrl VERSION 1.1.1 LANGUAGES CXX C)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Dependencies
 find_package(GTSAM 4.2.0 REQUIRED)
@@ -25,23 +26,27 @@ if (${JRL_BUILD_TESTS})
     add_subdirectory(tests)
 endif()
 
-# Build Python Bindings for JRL if configured
+# Build Python Bindings for JRL if configured (built by default when
+# building via scikit-build-core)
 option(JRL_BUILD_PYTHON "Build python bindings" OFF)
-if (${JRL_BUILD_PYTHON})
+if (${JRL_BUILD_PYTHON} OR SKBUILD)
     add_subdirectory(python)
 endif()
 
 # INSTALL: JRL Library
-install(
-	TARGETS jrl
-    EXPORT jrl-exports
-	LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-	ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-	RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-    PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/jrl)
-include(cmake/HandleUninstall.cmake) # for "make jrl-uninstall"
+# Skipped when building via scikit-build-core, which only wants the wheel
+if(NOT SKBUILD)
+    install(
+        TARGETS jrl
+        EXPORT jrl-exports
+        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+        PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/jrl)
+    include(cmake/HandleUninstall.cmake) # for "make jrl-uninstall"
 
-# Setup configuration for find_package
-include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/MakeConfigFile.cmake)
-MakeConfigFile(jrl)
-export(EXPORT jrl-exports FILE ${CMAKE_CURRENT_BINARY_DIR}/jrl-exports.cmake)
+    # Setup configuration for find_package
+    include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/MakeConfigFile.cmake)
+    MakeConfigFile(jrl)
+    export(EXPORT jrl-exports FILE ${CMAKE_CURRENT_BINARY_DIR}/jrl-exports.cmake)
+endif()
