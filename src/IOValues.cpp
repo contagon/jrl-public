@@ -100,6 +100,24 @@ json serialize<gtsam::Vector>(gtsam::Vector vec) {
 }
 
 /**********************************************************************************************************************/
+// ConstantBias
+template <>
+gtsam::imuBias::ConstantBias parse<gtsam::imuBias::ConstantBias>(const json& input_json) {
+  const std::vector<double> accelerometer = input_json["accelerometer"].get<std::vector<double>>();
+  const std::vector<double> gyroscope = input_json["gyroscope"].get<std::vector<double>>();
+  return gtsam::imuBias::ConstantBias(gtsam::Vector3(accelerometer.data()), gtsam::Vector3(gyroscope.data()));
+}
+
+template <>
+json serialize<gtsam::imuBias::ConstantBias>(gtsam::imuBias::ConstantBias bias) {
+  json output;
+  output["type"] = ConstantBiasTag;
+  output["accelerometer"] = std::vector<double>(bias.accelerometer().data(), bias.accelerometer().data() + 3);
+  output["gyroscope"] = std::vector<double>(bias.gyroscope().data(), bias.gyroscope().data() + 3);
+  return output;
+}
+
+/**********************************************************************************************************************/
 // Point2
 template <>
 gtsam::Point2 parse<gtsam::Point2>(const json& input_json) {

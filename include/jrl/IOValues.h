@@ -4,6 +4,7 @@
 #include <gtsam/geometry/Point3.h>
 #include <gtsam/geometry/Pose2.h>
 #include <gtsam/geometry/Pose3.h>
+#include <gtsam/navigation/ImuBias.h>
 #include <gtsam/nonlinear/Values.h>
 
 #include <nlohmann/json.hpp>
@@ -19,6 +20,7 @@ static const std::string Point3Tag = "Point3";
 static const std::string Unit3Tag = "Unit3";
 static const std::string VectorTag = "Vector";
 static const std::string ScalarTag = "Scalar";
+static const std::string ConstantBiasTag = "ConstantBias";
 static const std::string BearingRangeTag = "BearingRange";
 
 namespace io_values {
@@ -84,6 +86,13 @@ template <>
 gtsam::Vector parse<gtsam::Vector>(const json& input_json);
 template <>
 json serialize<gtsam::Vector>(gtsam::Vector vec);
+
+/**********************************************************************************************************************/
+// ConstantBias
+template <>
+gtsam::imuBias::ConstantBias parse<gtsam::imuBias::ConstantBias>(const json& input_json);
+template <>
+json serialize<gtsam::imuBias::ConstantBias>(gtsam::imuBias::ConstantBias bias);
 
 /**********************************************************************************************************************/
 // Point2

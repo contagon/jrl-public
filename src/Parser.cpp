@@ -30,6 +30,7 @@ std::map<std::string, ValueParser> Parser::loadDefaultValueAccumulators() {
       {Point3Tag,       [](const json& input, gtsam::Key key, gtsam::Values& accum) { return valueAccumulator<gtsam::Point3>(&parse<gtsam::Point3>, input, key, accum); }},
       {VectorTag,       [](const json& input, gtsam::Key key, gtsam::Values& accum) { return valueAccumulator<gtsam::Vector>(&parse<gtsam::Vector>, input, key, accum); }},
       {ScalarTag,       [](const json& input, gtsam::Key key, gtsam::Values& accum) { return valueAccumulator<double>(&parse<double>, input, key, accum); }},
+      {ConstantBiasTag, [](const json& input, gtsam::Key key, gtsam::Values& accum) { return valueAccumulator<gtsam::imuBias::ConstantBias>(&parse<gtsam::imuBias::ConstantBias>, input, key, accum); }},
   };
   // clang-format on
   return parser_functions;

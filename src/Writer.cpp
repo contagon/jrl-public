@@ -31,6 +31,7 @@ std::map<std::string, ValueSerializer> Writer::loadDefaultValueSerializers() {
     {Point3Tag, [](gtsam::Key key, gtsam::Values& vals) { return serialize<gtsam::Point3>(vals.at<gtsam::Point3>(key)); }},
     {VectorTag, [](gtsam::Key key, gtsam::Values& vals) { return serialize<gtsam::Vector>(vals.at<gtsam::Vector>(key)); }},
     {ScalarTag, [](gtsam::Key key, gtsam::Values& vals) { return serialize<double>(vals.at<double>(key)); }},
+    {ConstantBiasTag, [](gtsam::Key key, gtsam::Values& vals) { return serialize<gtsam::imuBias::ConstantBias>(vals.at<gtsam::imuBias::ConstantBias>(key)); }},
   };
   // clang-format on
   return serializer_functions;
