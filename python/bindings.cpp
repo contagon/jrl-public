@@ -39,6 +39,7 @@ NB_MODULE(_core, m) {
   m.attr("Unit3Tag") = Unit3Tag;
   m.attr("VectorTag") = VectorTag;
   m.attr("ScalarTag") = ScalarTag;
+  m.attr("ConstantBiasTag") = ConstantBiasTag;
   m.attr("BearingRangeTag") = BearingRangeTag;
 
   m.attr("PriorFactorPose2Tag") = PriorFactorPose2Tag;
@@ -57,6 +58,7 @@ NB_MODULE(_core, m) {
   m.attr("PriorFactorPoint3Tag") = PriorFactorPoint3Tag;
   m.attr("BetweenFactorPoint2Tag") = BetweenFactorPoint2Tag;
   m.attr("BetweenFactorPoint3Tag") = BetweenFactorPoint3Tag;
+  m.attr("CombinedImuFactorTag") = CombinedImuFactorTag;
 
   /**
    * ########     ###    ########    ###     ######  ######## ########
