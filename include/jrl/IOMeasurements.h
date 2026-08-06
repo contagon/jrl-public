@@ -27,6 +27,7 @@ static const std::string BetweenFactorPoint2Tag = "BetweenFactorPoint2";
 static const std::string BetweenFactorPoint3Tag = "BetweenFactorPoint3";
 static const std::string PriorFactorPoint2Tag = "PriorFactorPoint2";
 static const std::string PriorFactorPoint3Tag = "PriorFactorPoint3";
+static const std::string CombinedImuFactorTag = "CombinedImuFactor";
 
 namespace io_measurements {
 
@@ -34,6 +35,10 @@ namespace io_measurements {
 /// @brief Parses a covariance matrix from json
 gtsam::Matrix parseCovariance(json input_json, int d);
 json serializeCovariance(gtsam::Matrix covariance);
+
+/**********************************************************************************************************************/
+gtsam::NonlinearFactor::shared_ptr parseCombinedImuFactor(const json& input_json);
+json serializeCombinedImuFactor(gtsam::NonlinearFactor::shared_ptr& factor);
 
 /**********************************************************************************************************************/
 template <typename T>

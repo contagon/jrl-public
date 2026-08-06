@@ -55,6 +55,7 @@ std::map<std::string, MeasurementParser> Parser::loadDefaultMeasurementParsers()
       {PriorFactorPoint3Tag,        [](const json& input) { return parsePrior<gtsam::Point3>(&parse<gtsam::Point3>, input); }},
       {BetweenFactorPoint2Tag,      [](const json& input) { return parseNoiseModel2<gtsam::Point2, gtsam::BetweenFactor<gtsam::Point2>>(&parse<gtsam::Point2>, input); }},
       {BetweenFactorPoint3Tag,      [](const json& input) { return parseNoiseModel2<gtsam::Point3, gtsam::BetweenFactor<gtsam::Point3>>(&parse<gtsam::Point3>, input); }},
+      {CombinedImuFactorTag,        [](const json& input) { return parseCombinedImuFactor(input); }},
   };
   // clang-format on
   return parser_functions;
