@@ -56,6 +56,7 @@ NB_MODULE(_core, m) {
   m.attr("BearingRangeFactor3DTag") = BearingRangeFactor3DTag;
   m.attr("PriorFactorPoint2Tag") = PriorFactorPoint2Tag;
   m.attr("PriorFactorPoint3Tag") = PriorFactorPoint3Tag;
+  m.attr("PriorFactorConstantBiasTag") = PriorFactorConstantBiasTag;
   m.attr("BetweenFactorPoint2Tag") = BetweenFactorPoint2Tag;
   m.attr("BetweenFactorPoint3Tag") = BetweenFactorPoint3Tag;
   m.attr("CombinedImuFactorTag") = CombinedImuFactorTag;

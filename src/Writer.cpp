@@ -55,6 +55,7 @@ std::map<std::string, MeasurementSerializer> Writer::loadDefaultMeasurementSeria
     {BearingRangeFactor3DTag,       [](gtsam::NonlinearFactor::shared_ptr& factor) { return serializeNoiseModel2<gtsam::BearingRange<gtsam::Pose3, gtsam::Point3>, gtsam::BearingRangeFactor<gtsam::Pose3, gtsam::Point3>>(&serializeBearingRange<gtsam::Pose3, gtsam::Point3>, BearingRangeFactor3DTag, factor); }},
     {PriorFactorPoint2Tag,          [](gtsam::NonlinearFactor::shared_ptr& factor) { return serializePrior<gtsam::Point2>(&serialize<gtsam::Point2>, PriorFactorPoint2Tag, factor); }},
     {PriorFactorPoint3Tag,          [](gtsam::NonlinearFactor::shared_ptr& factor) { return serializePrior<gtsam::Point3>(&serialize<gtsam::Point3>, PriorFactorPoint3Tag, factor); }},
+    {PriorFactorConstantBiasTag,    [](gtsam::NonlinearFactor::shared_ptr& factor) { return serializePrior<gtsam::imuBias::ConstantBias>(&serialize<gtsam::imuBias::ConstantBias>, PriorFactorConstantBiasTag, factor); }},
     {BetweenFactorPoint2Tag,        [](gtsam::NonlinearFactor::shared_ptr& factor) { return serializeNoiseModel2<gtsam::Point2, gtsam::BetweenFactor<gtsam::Point2>>(&serialize<gtsam::Point2>, BetweenFactorPoint2Tag, factor); }},
     {BetweenFactorPoint3Tag,        [](gtsam::NonlinearFactor::shared_ptr& factor) { return serializeNoiseModel2<gtsam::Point3, gtsam::BetweenFactor<gtsam::Point3>>(&serialize<gtsam::Point3>, BetweenFactorPoint2Tag, factor); }},
     {CombinedImuFactorTag,          [](gtsam::NonlinearFactor::shared_ptr& factor) { return serializeCombinedImuFactor(factor); }},

@@ -27,6 +27,7 @@ static const std::string BetweenFactorPoint2Tag = "BetweenFactorPoint2";
 static const std::string BetweenFactorPoint3Tag = "BetweenFactorPoint3";
 static const std::string PriorFactorPoint2Tag = "PriorFactorPoint2";
 static const std::string PriorFactorPoint3Tag = "PriorFactorPoint3";
+static const std::string PriorFactorConstantBiasTag = "PriorFactorConstantBias";
 static const std::string CombinedImuFactorTag = "CombinedImuFactor";
 
 namespace io_measurements {
