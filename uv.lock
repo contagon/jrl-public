@@ -62,20 +62,23 @@ wheels = [
 [[package]]
 name = "gtsam-nb"
 version = "0.1.3"
-source = { registry = "https://pypi.org/simple" }
+source = { directory = "../gtsam-nb" }
 dependencies = [
     { name = "numpy", version = "2.4.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.12'" },
     { name = "numpy", version = "2.5.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.12'" },
 ]
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/5e/05/34428d04eec8c31ac03f4d508868005fa286a4d163df337883ebcde94a49/gtsam_nb-0.1.3-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:d1d621e136d61660c3057111338249f9583a420d44cb3a5778abdca6051b1206", size = 15339687, upload-time = "2026-05-08T17:49:10.726Z" },
-    { url = "https://files.pythonhosted.org/packages/32/d0/9bd9095829a5ee559f389fadf99514c9a078e1daa22dfb25d3301bd761f8/gtsam_nb-0.1.3-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:f9c94b15c20ac7dad0a5a64acd2b35a9a4e9bb9b8ef637ba7aabcf8fd9722ec2", size = 16427441, upload-time = "2026-05-08T17:49:13.13Z" },
-    { url = "https://files.pythonhosted.org/packages/e0/82/1ee7aba696fb1cf08a4ff036cde89f0d0a387859aa458905597d4b1c74f2/gtsam_nb-0.1.3-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:559bebfc2a11252b89e9dc18af9eb0921a6716d57cd2b36ee6c650e58eb6bf65", size = 15348740, upload-time = "2026-05-08T17:49:15.703Z" },
-    { url = "https://files.pythonhosted.org/packages/92/5c/ac94f8a5c5bbdfc9308109804233a8118325f738c1b0c11cb24bac0e82da/gtsam_nb-0.1.3-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:2ce9ba737b564b2b289ee55a208eeeecf538459202a3e6e7125e5be6c495d71c", size = 16434549, upload-time = "2026-05-08T17:49:18.572Z" },
-    { url = "https://files.pythonhosted.org/packages/23/f3/d41a73a88e58787d2c942fb52a7af5030787fa120d28ef2c6205257da77f/gtsam_nb-0.1.3-cp313-cp313-macosx_11_0_arm64.whl", hash = "sha256:0346ab704bda3471d498938f3626a0c3c8d5531973cc53d33bee0fd2607e91a3", size = 15348741, upload-time = "2026-05-08T17:49:21.1Z" },
-    { url = "https://files.pythonhosted.org/packages/8a/62/08c67923e2bbd85df75000d3e5d0b108be94a726984b5e63c34a1c5428d3/gtsam_nb-0.1.3-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:3e006b13539da336a87a9c0e135efb39d4e51f5c76293520870e5d7720f8cd24", size = 16434554, upload-time = "2026-05-08T17:49:23.578Z" },
-    { url = "https://files.pythonhosted.org/packages/ce/8a/74a4483abd46fc6ca4b52af148634503279211beaf89495cd0914f2c7419/gtsam_nb-0.1.3-cp314-cp314-macosx_11_0_arm64.whl", hash = "sha256:900837c808c949d5159bdfcd74a591bd55ae9af032da8f922298c7c029d4479e", size = 15348828, upload-time = "2026-05-08T17:49:26.688Z" },
-    { url = "https://files.pythonhosted.org/packages/90/e6/5682a1d78fcd872d3cee2538dba054949c4664844f863b8315c9fb84d168/gtsam_nb-0.1.3-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:9273ecc2566facdce5950369f8d7d84a5db38a9fcc212704beb59837b6cf970c", size = 16434696, upload-time = "2026-05-08T17:49:28.83Z" },
+
+[package.metadata]
+requires-dist = [{ name = "numpy", specifier = ">2" }]
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "basedpyright", specifier = ">=1.33.0" },
+    { name = "cmake", specifier = "<4.0" },
+    { name = "compdb", specifier = ">=0.2.0" },
+    { name = "ipython", specifier = ">=9.7.0" },
+    { name = "matplotlib", specifier = ">=3.10.7" },
+    { name = "pytest", specifier = ">=9.0.1" },
 ]
 
 [[package]]
@@ -156,7 +159,7 @@ requires-dist = [{ name = "numpy", specifier = ">2" }]
 [package.metadata.requires-dev]
 dev = [
     { name = "cmake", specifier = "<4.0" },
-    { name = "gtsam-nb", specifier = "==0.1.3" },
+    { name = "gtsam-nb", directory = "../gtsam-nb" },
     { name = "ipython" },
     { name = "pytest" },
 ]

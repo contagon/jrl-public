@@ -12,7 +12,15 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(nanobind)
 
 # Python Bindings
-nanobind_add_module(_core bindings.cpp)
+nanobind_add_module(_core STABLE_ABI NB_STATIC bindings.cpp)
 target_link_libraries(_core PRIVATE jrl gtsam nlohmann_json::nlohmann_json)
 
 install(TARGETS _core DESTINATION jrl)
+
+nanobind_add_stub(
+    jrl_stubgen
+    INSTALL_TIME
+    MODULE jrl._core
+    RECURSIVE
+    OUTPUT_PATH jrl
+)

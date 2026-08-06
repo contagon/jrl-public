@@ -37,3 +37,6 @@ cache-keys = [
     { file = "python/**/*.{cpp,py}" },
     { file = "CMakeLists.txt" },
 ]
+
+[tool.uv.sources]
+gtsam-nb = { path = "../gtsam-nb" }
