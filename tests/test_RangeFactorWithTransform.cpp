@@ -46,6 +46,7 @@ gtsam::NonlinearFactor::shared_ptr roundTrip(const json& factor) {
 TEST(RangeFactorWithTransform, Pose2) {
   const auto factor = roundTrip(measurement(jrl::RangeFactorWithTransformPose2Tag, X(0), X(1), 2.0,
                                              serialize<gtsam::Pose2>(gtsam::Pose2(1.0, 0.0, 0.0))));
+  ASSERT_NE(nullptr, boost::dynamic_pointer_cast<jrl::RangeFactorWithTransform<gtsam::Pose2>>(factor));
   const auto typed = boost::dynamic_pointer_cast<gtsam::RangeFactorWithTransform<gtsam::Pose2>>(factor);
   ASSERT_NE(nullptr, typed);
 

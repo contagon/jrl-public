@@ -36,6 +36,27 @@ static const std::string PriorFactorPoint3Tag = "PriorFactorPoint3";
 static const std::string PriorFactorConstantBiasTag = "PriorFactorConstantBias";
 static const std::string CombinedImuFactorTag = "CombinedImuFactor";
 
+// GTSAM does not expose RangeFactorWithTransform's body_T_sensor. Retain the
+// parsed value so JRL can serialize factors it constructed without losing it.
+template <typename A1, typename A2 = A1>
+class RangeFactorWithTransform final : public gtsam::RangeFactorWithTransform<A1, A2> {
+ public:
+  using Base = gtsam::RangeFactorWithTransform<A1, A2>;
+
+  RangeFactorWithTransform(gtsam::Key key1, gtsam::Key key2, double measured, const gtsam::SharedNoiseModel& model,
+                           const A1& body_T_sensor)
+      : Base(key1, key2, measured, model, body_T_sensor), body_T_sensor_(body_T_sensor) {}
+
+  gtsam::NonlinearFactor::shared_ptr clone() const override {
+    return gtsam::NonlinearFactor::shared_ptr(new RangeFactorWithTransform(*this));
+  }
+
+  const A1& body_T_sensor() const { return body_T_sensor_; }
+
+ private:
+  A1 body_T_sensor_;
+};
+
 namespace io_measurements {
 
 /**********************************************************************************************************************/
@@ -80,28 +101,6 @@ json serializePrior(std::function<json(T)> val_serializer_fn, std::string type_t
   return output;
 }
 
-/**********************************************************************************************************************/
-// GTSAM does not expose RangeFactorWithTransform's body_T_sensor. Retain the
-// parsed value so JRL can serialize factors it constructed without losing it.
-template <typename A1, typename A2 = A1>
-class RangeFactorWithTransformFromComponents final : public gtsam::RangeFactorWithTransform<A1, A2> {
- public:
-  using Base = gtsam::RangeFactorWithTransform<A1, A2>;
-
-  RangeFactorWithTransformFromComponents(gtsam::Key key1, gtsam::Key key2, double measured,
-                                         const gtsam::SharedNoiseModel& model, const A1& body_T_sensor)
-      : Base(key1, key2, measured, model, body_T_sensor), body_T_sensor_(body_T_sensor) {}
-
-  gtsam::NonlinearFactor::shared_ptr clone() const override {
-    return gtsam::NonlinearFactor::shared_ptr(new RangeFactorWithTransformFromComponents(*this));
-  }
-
-  const A1& body_T_sensor() const { return body_T_sensor_; }
-
- private:
-  A1 body_T_sensor_;
-};
-
 template <typename A1, typename A2 = A1>
 gtsam::NonlinearFactor::shared_ptr parseRangeFactorWithTransform(std::function<double(json)> measurement_parser_fn,
                                                                  std::function<A1(json)> transform_parser_fn,
@@ -112,9 +111,8 @@ gtsam::NonlinearFactor::shared_ptr parseRangeFactorWithTransform(std::function<d
   A1 body_T_sensor = transform_parser_fn(input_json["body_T_sensor"]);
   Eigen::MatrixXd covariance = parseCovariance(input_json["covariance"], 1);
 
-  typename RangeFactorWithTransformFromComponents<A1, A2>::shared_ptr factor =
-      boost::make_shared<RangeFactorWithTransformFromComponents<A1, A2>>(
-          key1, key2, measured, gtsam::noiseModel::Gaussian::Covariance(covariance), body_T_sensor);
+  typename RangeFactorWithTransform<A1, A2>::shared_ptr factor = boost::make_shared<RangeFactorWithTransform<A1, A2>>(
+      key1, key2, measured, gtsam::noiseModel::Gaussian::Covariance(covariance), body_T_sensor);
   return factor;
 }
 
@@ -122,7 +120,7 @@ template <typename A1, typename A2 = A1>
 json serializeRangeFactorWithTransform(std::function<json(double)> measurement_serializer_fn,
                                        std::function<json(A1)> transform_serializer_fn, std::string type_tag,
                                        gtsam::NonlinearFactor::shared_ptr& factor) {
-  const auto range = boost::dynamic_pointer_cast<RangeFactorWithTransformFromComponents<A1, A2>>(factor);
+  const auto range = boost::dynamic_pointer_cast<RangeFactorWithTransform<A1, A2>>(factor);
   if (!range) {
     throw std::invalid_argument("RangeFactorWithTransform must be created by JRL to serialize body_T_sensor");
   }
