@@ -65,22 +65,24 @@ NB_MODULE(_core, m) {
   m.attr("BetweenFactorPoint3Tag") = BetweenFactorPoint3Tag;
   m.attr("CombinedImuFactorTag") = CombinedImuFactorTag;
 
-  nb::class_<RangeFactorWithTransform<gtsam::Pose2>, gtsam::NonlinearFactor>(m, "RangeFactorWithTransformPose2")
-      .def(nb::init<gtsam::Key, gtsam::Key, double, const gtsam::SharedNoiseModel&, const gtsam::Pose2&>(),
+  nb::class_<RangeFactorWithTransform<gtsam::Pose2>, gtsam::RangeFactorWithTransform<gtsam::Pose2>>(
+      m, "RangeFactorWithTransformPose2")
+      .def(nb::init<gtsam::Key, gtsam::Key, double, const gtsam::SharedNoiseModel &, const gtsam::Pose2 &>(),
            nb::arg("key1"), nb::arg("key2"), nb::arg("measured"), nb::arg("model"), nb::arg("body_T_sensor"))
       .def_prop_ro("body_T_sensor", &RangeFactorWithTransform<gtsam::Pose2>::body_T_sensor);
-  nb::class_<RangeFactorWithTransform<gtsam::Pose3>, gtsam::NonlinearFactor>(m, "RangeFactorWithTransformPose3")
-      .def(nb::init<gtsam::Key, gtsam::Key, double, const gtsam::SharedNoiseModel&, const gtsam::Pose3&>(),
+  nb::class_<RangeFactorWithTransform<gtsam::Pose3>, gtsam::RangeFactorWithTransform<gtsam::Pose3>>(
+      m, "RangeFactorWithTransformPose3")
+      .def(nb::init<gtsam::Key, gtsam::Key, double, const gtsam::SharedNoiseModel &, const gtsam::Pose3 &>(),
            nb::arg("key1"), nb::arg("key2"), nb::arg("measured"), nb::arg("model"), nb::arg("body_T_sensor"))
       .def_prop_ro("body_T_sensor", &RangeFactorWithTransform<gtsam::Pose3>::body_T_sensor);
-  nb::class_<RangeFactorWithTransform<gtsam::Pose2, gtsam::Point2>, gtsam::NonlinearFactor>(
-      m, "RangeFactorWithTransform2D")
-      .def(nb::init<gtsam::Key, gtsam::Key, double, const gtsam::SharedNoiseModel&, const gtsam::Pose2&>(),
+  nb::class_<RangeFactorWithTransform<gtsam::Pose2, gtsam::Point2>,
+             gtsam::RangeFactorWithTransform<gtsam::Pose2, gtsam::Point2>>(m, "RangeFactorWithTransform2D")
+      .def(nb::init<gtsam::Key, gtsam::Key, double, const gtsam::SharedNoiseModel &, const gtsam::Pose2 &>(),
            nb::arg("key1"), nb::arg("key2"), nb::arg("measured"), nb::arg("model"), nb::arg("body_T_sensor"))
       .def_prop_ro("body_T_sensor", &RangeFactorWithTransform<gtsam::Pose2, gtsam::Point2>::body_T_sensor);
-  nb::class_<RangeFactorWithTransform<gtsam::Pose3, gtsam::Point3>, gtsam::NonlinearFactor>(
-      m, "RangeFactorWithTransform3D")
-      .def(nb::init<gtsam::Key, gtsam::Key, double, const gtsam::SharedNoiseModel&, const gtsam::Pose3&>(),
+  nb::class_<RangeFactorWithTransform<gtsam::Pose3, gtsam::Point3>,
+             gtsam::RangeFactorWithTransform<gtsam::Pose3, gtsam::Point3>>(m, "RangeFactorWithTransform3D")
+      .def(nb::init<gtsam::Key, gtsam::Key, double, const gtsam::SharedNoiseModel &, const gtsam::Pose3 &>(),
            nb::arg("key1"), nb::arg("key2"), nb::arg("measured"), nb::arg("model"), nb::arg("body_T_sensor"))
       .def_prop_ro("body_T_sensor", &RangeFactorWithTransform<gtsam::Pose3, gtsam::Point3>::body_T_sensor);
 
