@@ -39,6 +39,15 @@ Note: We use a special case meta types (2D) and (3D) for measurements that are b
   * measurement (double)
   * covariance (vector[1]: double)
 
+### RangeFactorWithTransform\<TYPE\>
+* \<TYPE\> = Pose2, Pose3, 2D, and 3D
+* Elements:
+   * key1 (uint64)
+   * key2 (uint64)
+   * measurement (double)
+   * covariance (vector[1]: double)
+   * body_T_sensor (Pose2 for Pose2 and 2D; Pose3 for Pose3 and 3D)
+
 ### BearingRangeFactor\<TYPE\>
 * \<TYPE\> = Pose2, Pose3, 2D, and 3D
 * Elements:

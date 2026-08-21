@@ -50,6 +50,10 @@ NB_MODULE(_core, m) {
   m.attr("RangeFactorPose3Tag") = RangeFactorPose3Tag;
   m.attr("RangeFactor2DTag") = RangeFactor2DTag;
   m.attr("RangeFactor3DTag") = RangeFactor3DTag;
+  m.attr("RangeFactorWithTransformPose2Tag") = RangeFactorWithTransformPose2Tag;
+  m.attr("RangeFactorWithTransformPose3Tag") = RangeFactorWithTransformPose3Tag;
+  m.attr("RangeFactorWithTransform2DTag") = RangeFactorWithTransform2DTag;
+  m.attr("RangeFactorWithTransform3DTag") = RangeFactorWithTransform3DTag;
   m.attr("BearingRangeFactorPose2Tag") = BearingRangeFactorPose2Tag;
   m.attr("BearingRangeFactorPose3Tag") = BearingRangeFactorPose3Tag;
   m.attr("BearingRangeFactor2DTag") = BearingRangeFactor2DTag;
